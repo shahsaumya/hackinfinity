@@ -1,10 +1,8 @@
-from django.shortcuts import render
 from random import randint
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import update_last_login
@@ -12,7 +10,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 import requests
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -55,12 +52,35 @@ def register(request):
 
 
 @login_required
+def query_produce(request):
+    if request.method == "POST":
+        produce = Produce.objects.all()
+        return render("market.html", {"produce": produce})
+    else:
+        return HttpResponse(status_code=400)
+
+
+@login_required
+def remove_produce(request):
+    if request.method == "POST":
+        if (request.post.get("delete", None)):
+            produce_id = request.POST["produce_id"]
+            produce = Produce.objects.get(id=produce_id)
+            produce.delete()
+            return HttpResponse()
+    return HttpResponse(status_code=400)
+
+
+@login_required
 def add_produce(request):
     if request.method == 'POST':
         crop = request.POST['crop']
         quantity = request.POST['quantity']
         produce = Produce(user=request.user, crop=crop, quantity=quantity)
         produce.save()
+        return render("market.html")
+    else:
+        return HttpResponse(status_code=400)
 
 
 def login_user(request):

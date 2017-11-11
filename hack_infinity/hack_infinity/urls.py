@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^register/', views.register),
     url(r'^login/', views.login_user),
     url(r'^index/',views.index),
+    url(r'^add-produce/', views.add_produce)
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
