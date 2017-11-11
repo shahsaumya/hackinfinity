@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import *
 # Register your models here.
+from app import models
+
 
 admin.site.register(MyUser)
+admin.site.register(models.State_translator)
+# Register your models here.
