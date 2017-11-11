@@ -27,3 +27,14 @@ class Produce(models.Model):
     crop = models.CharField(max_length=30)
     quantity = models.IntegerField()
     status = models.CharField(max_length=10)
+
+
+class Support(models.Model):
+    user = models.ForeignKey("MyUser")
+    support_text = models.TextField()
+    is_read = models.BooleanField()
+
+    def __init__(self, user, support_text, is_read=False):
+        self.user = user
+        self.is_read = is_read
+        self.support_text = support_text
