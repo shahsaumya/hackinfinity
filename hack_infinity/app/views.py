@@ -61,6 +61,26 @@ def query_produce(request):
 
 
 @login_required
+def add_support(request):
+    if request.method == "POST":
+        Support.objects.create(
+            request.user,
+            request.POST["support_text"]
+        )
+        return redirect("/index/")  # return the actual page, later
+    else:
+        return HttpResponse(status_code=400)
+
+@login_required
+def view_support(request):
+    if request.method == "GET":
+        support = Support.objects.filter(user_id=request.user.id)
+        return render("support.html", {"support": support})
+    else:
+        return HttpResponse(status_code=400)
+
+
+@login_required
 def remove_produce(request):
     if request.method == "POST":
         if (request.post.get("delete", None)):
