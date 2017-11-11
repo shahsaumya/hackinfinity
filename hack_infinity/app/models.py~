@@ -7,7 +7,7 @@ from django.forms.models import model_to_dict
 
 class MyUser(AbstractUser):
     mobile_no = models.CharField(max_length=10, unique=True)
-    user_type = models.NullBooleanField(null=True)
+    user_type = models.BooleanField(null=True)
 
 
 class State_translator(models.Model):
