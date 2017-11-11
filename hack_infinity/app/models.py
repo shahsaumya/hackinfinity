@@ -26,4 +26,3 @@ class Produce(models.Model):
     user = models.ForeignKey('MyUser')
     crop = models.CharField(max_length=30)
     quantity = models.IntegerField()
-    tatti = models.CharField(max_length=1)
