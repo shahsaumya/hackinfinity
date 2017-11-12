@@ -43,8 +43,13 @@
             <i class="fa fa-user"></i>
           </div>
           <div class="group">
-            <input type="text" id="mobile" class="form-control" name="mobile" value="{{ mobile }}"  placeholder="Mobile" required="required">
+            <input type="text" id="aadhar" class="form-control" name="aadhar" value="{{ aadhar }}"  placeholder="Aadhar" required="required">
             <i class="fa fa-envelope-o"></i>
+            <div style=" color:#f00;"> {{ error }} </div>
+          </div>
+          <div class="group">
+            <input type="text" id="mobile" class="form-control" name="mobile" value="{{ mobile }}"  placeholder="Mobile" required="required">
+            <i class="fa fa-phone"></i>
             <div style=" color:#f00;"> {{ error }} </div>
           </div>
           <div class="group">

@@ -22,7 +22,7 @@
       <form action="" method="POST" onsubmit="return check(this);">
         {% csrf_token %}
         <div class="top">
-          <img src="{% static "images/favicon.png" %}" alt="icon" class="icon">
+          <img src="{% static 'images/favicon.png' %}" alt="icon" class="icon">
           <h1>Croppy</h1>
           <h4>Crop Checkup made quick and easy</h4>
         </div>
@@ -30,7 +30,7 @@
 
           <div style=" color:#f00; font-size:15px ;"> {{ error }} </div> 
           <div class="group">
-            <input type="text" class="form-control" name="mobile" id="mobile"  value="{{ mobile }}" placeholder="Mobile No" onkeyup="individual('pass');" required="required" maxlength="10" minlength="10">
+            <input type="text" class="form-control" name="mobile" id="mobile"  value="{{ mobile }}" placeholder="Mobile No" required="required" maxlength="10" minlength="10">
             <i class="fa fa-user"></i>
           </div>
           <div class="group">
@@ -49,12 +49,11 @@
         </div>
       </div>
   
-      
 
 <script type="text/javascript">
 function get_otp(){
     var mobile = document.getElementById('mobile').value;
-    //var csrftoken = Cookies.get('csrftoken');
+    alert(mobile);
     if(document.getElementById('get_otp_submit').getAttribute('type')!='submit')
     {
     var xhttp = new XMLHttpRequest();
@@ -64,29 +63,15 @@ function get_otp(){
             document.getElementById('get_otp_submit').setAttribute('type','submit');
             //document.getElementById('get_otp_submit').setAttribute('type','submit');
             document.getElementById('get_otp_submit').innerHTML = "Login";
+            alert("1");
         }
     };
+    alert("1");
     xhttp.open("POST", '../login/', true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("mobile="+mobile);}
 }
 
-function individual(str) {
-  var uname = document.getElementById('username');
-  var pass = document.getElementById('password');
-  if(str == 'uname')
-  {
-   //alert(""+uname.value); 
-    if(uname.value != ''){
-      uname.style.border= "1px solid #BDC4C9";
-    }
-  }
-  else if(str == 'pass'){
-    if(pass.value != ''){
-      pass.style.border = "1px solid #BDC4C9";
-    }
-  }
-}
 </script>
 
 </body>

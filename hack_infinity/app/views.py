@@ -21,6 +21,7 @@ def register(request):
         email = request.POST.get('email')
         user_type = request.POST.get('user_type')
         mobile = request.POST.get('mobile')
+        aadhar = request.POST.get('aadhar')
         password = randint(1000, 9999)
         #message = "Your OTP for login is: "
         #requests.get('https://control.msg91.com/api/sendhttp.php?authkey=132727AshR9z6QU9Dg58416307&mobiles='+mob+'&message='+a+'&sender=DLFIND&route=4', None)
@@ -97,7 +98,7 @@ def add_produce(request):
         return HttpResponse(status_code=400)
 
 
-def login_user(request):
+def login_app(request):
     if request.method == 'POST':
         mobile = request.POST.get('mobile')
         otp = request.POST.get('otp',None)
@@ -152,15 +153,14 @@ def logout_app(request):
 def feedback(request):
     if request.user.is_authenticated():
         if request.method == 'POST':
-            fname = request.POST.get('fname')
-            lname = request.POST.get('lname')
             aadhar = request.POST.get('aadharNumber')
             phoneNo = request.POST.get('phoneNo')
             text_feedback = request.POST.get('text_feedback')
-            feedback = Feedback()
-            feedback.user_id = request.user
-            feedback.aadhar = aadhar
-            feedback.feedback = text_feedback
+            feedback = Support()
+            feedback.user = request.user
+            #feedback.aadhar = aadhar
+            feedback.support_text = text_feedback
+            feedback.is_read = False
             feedback.save()
     return render(request,'feedback.html')
 

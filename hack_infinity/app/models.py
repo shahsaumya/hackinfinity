@@ -8,6 +8,7 @@ from django.forms.models import model_to_dict
 class MyUser(AbstractUser):
     mobile_no = models.CharField(max_length=10, unique=True)
     user_type = models.NullBooleanField(null=True)
+    aadhar = models.CharField(max_length=20,null=True,blank=True)
 
 
 class State_translator(models.Model):
@@ -33,14 +34,3 @@ class Support(models.Model):
     user = models.ForeignKey("MyUser")
     support_text = models.TextField()
     is_read = models.BooleanField()
-
-    def __init__(self, user, support_text, is_read=False):
-        self.user = user
-        self.is_read = is_read
-        self.support_text = support_text
-
-
-class Feedback(models.Model):
-    user_id = models.ForeignKey('MyUser')
-    aadhar = models.CharField(max_length=16)
-    feedback = models.CharField(max_length=1000)
