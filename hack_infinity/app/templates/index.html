@@ -208,19 +208,9 @@
                       zIndex: 1
                   }
               });
-              google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
-                  if(document.getElementById("status") != null) {
-                      document.getElementById('info').innerHTML += "polygon points:" + "<br>";
-                      for (var i = 0; i < polygon.getPath().getLength(); i++) {
-                          document.getElementById('info').innerHTML += polygon.getPath().getAt(i).toUrlValue(6) + "<br>";
-                          console.log(polygon.getPath().getAt(i).toUrlValue(6));
-                      }
-                      polygonArray.push(polygon);
-                  }
-              });
-
 
               drawingManager.setMap(map);
+
 
           }
 
