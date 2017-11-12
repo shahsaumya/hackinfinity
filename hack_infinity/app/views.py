@@ -96,8 +96,6 @@ def add_produce(request):
     else:
         return HttpResponse(status_code=400)
 
-def login_page(request):
-    return render(request, "login.html")
 
 def login_user(request):
     if request.method == 'POST':
@@ -116,7 +114,7 @@ def login_user(request):
             #print(user)
             if user:
                 login(request, user)
-                return redirect('../index')
+                return redirect('../')
             else:
                 return render(request, 'login.html', {'mobile': mobile, 'error': 'Incorrect OTP'})
         elif 'mobile' in request.POST and otp is None:
