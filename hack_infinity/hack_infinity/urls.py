@@ -17,8 +17,12 @@ from django.conf.urls import url
 from django.contrib import admin
 from app import views
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^register/', views.register),
-    url(r'^login/', views.login_user),
-    url(r'^add-produce/', views.add_produce)
+    url(r'^admin/$', admin.site.urls),
+    url(r'^register/$', views.register),
+    url(r'^login/$', views.login_user),
+    url(r'^add-produce/$', views.add_produce),
+    url(r'^query-produce/$', views.query_produce),
+    url(r'^add-support/$', views.add_support),
+    url(r'^view-support/$', views.view_support),
+    url(r'^remove_produce/$', views.remove_produce),
 ]
