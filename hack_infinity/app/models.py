@@ -38,3 +38,9 @@ class Support(models.Model):
         self.user = user
         self.is_read = is_read
         self.support_text = support_text
+
+
+class Feedback(models.Model):
+    user_id = models.ForeignKey('MyUser')
+    aadhar = models.CharField(max_length=16)
+    feedback = models.CharField(max_length=1000)

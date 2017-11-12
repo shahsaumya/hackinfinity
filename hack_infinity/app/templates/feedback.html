@@ -52,7 +52,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
-    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
         #view-source {
             position: fixed;
@@ -127,27 +127,27 @@
         <div class="mdl-grid demo-content">
 
 
-            <form>
+            <form method="POST">
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Name">
+                    <input class="mdl-textfield__input" type="text" id="Name" name="fname">
                     <label class="mdl-textfield__label" for="Name">Name...</label>
                 </div><br>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="Surname">
+                    <input class="mdl-textfield__input" type="text" id="Surname" name="lname">
                     <label class="mdl-textfield__label" for="Surname">Surname...</label>
                 </div><br>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="aadharNumber">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="aadharNumber" name="aadharNumber">
                     <label class="mdl-textfield__label" for="aadharNumber">Aadhar Number...</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                 </div><br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="phoneNo">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="phoneNo" name="phoneNo">
                     <label class="mdl-textfield__label" for="phoneNo">Phone Number...</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                 </div><br>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="feedback" ></textarea>
+                    <textarea class="mdl-textfield__input" type="text" rows= "3" id="feedback" name="text_feedback" ></textarea>
                     <label class="mdl-textfield__label" for="feedback">Feedback...</label>
                 </div><br>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit">

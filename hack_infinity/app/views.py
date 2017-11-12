@@ -150,6 +150,18 @@ def logout_app(request):
         return HttpResponseRedirect('../login/')
 
 def feedback(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            fname = request.POST.get('fname')
+            lname = request.POST.get('lname')
+            aadhar = request.POST.get('aadharNumber')
+            phoneNo = request.POST.get('phoneNo')
+            text_feedback = request.POST.get('text_feedback')
+            feedback = Feedback()
+            feedback.user_id = request.user
+            feedback.aadhar = aadhar
+            feedback.feedback = text_feedback
+            feedback.save()
     return render(request,'feedback.html')
 
 
