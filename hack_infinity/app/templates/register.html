@@ -1,11 +1,120 @@
-<html>
-<form method="POST" action="">
-{% csrf_token %}
-{{error}} <br>
-<input type="text" value="Vatsal" name="fname">
-<input type="text" value="Doshi" name="lname">
-<input type="text" value="8080277553" name="mobile">
-<input type="text" value="doshivatsal7@gmail.com" name="email">
-<input type="submit" name="register_user">
-</form>
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kode is a Premium Bootstrap Admin Template, It's responsive, clean coded and mobile friendly">
+  <meta name="keywords" content="bootstrap, admin, dashboard, flat admin template, responsive," />
+  <title>Register - Croppy</title>
+
+  <!-- ========== Css Files ========== -->
+  <link href="{% static "css/root.css" %}" rel="stylesheet">
+  <style type="text/css">
+    body{background: #F5F5F5;}
+  </style>
+  </head>
+  <body>
+
+    <div class="login-form" style="padding-top: 18px;" >  
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="top">
+          <h1>Register</h1>
+          <h4>Be a part of Croppy !</h4>
+        </div>
+        <div class="form-area">
+          <div class="radio radio-info radio-inline">
+            <input type="radio" id="inlineRadio1" value="0" name="user_type" checked>
+            <label for="inlineRadio1"> Farmer </label>
+          </div>
+          <div class="radio radio-inline">
+            <input type="radio" id="inlineRadio2" value="1" name="user_type">
+            <label for="inlineRadio2"> Seller </label>
+           </div><br><br>
+          <div class="group">
+            <input type="text" class="form-control" value="{{ first_name }}" name="fname" id="fname" placeholder="First Name" required="required">
+            <i class="fa fa-user"></i>
+          </div>
+          <div class="group">
+            <input type="text" class="form-control" name="lname" value="{{ last_name }}" id="lname" placeholder="Last Name" required="required">
+            <i class="fa fa-user"></i>
+          </div>
+          <div class="group">
+            <input type="text" id="mobile" class="form-control" name="mobile" value="{{ mobile }}"  placeholder="Mobile" required="required">
+            <i class="fa fa-envelope-o"></i>
+            <div style=" color:#f00;"> {{ error }} </div>
+          </div>
+          <div class="group">
+            <input type="text" id="email" class="form-control" name="email" value="{{ email }}" placeholder="E-mail" required="required">
+            <i class="fa fa-envelope-o"></i>
+            <div style=" color:#f00;"> {{ error1 }} </div>
+          </div>
+          <button type="submit" class="btn btn-default btn-block">REGISTER</button>
+        </div>
+        
+      
+      <!--<div class="footer-links row">
+        <div class="col-xs-6"><a href="#"><i class="fa fa-sign-in"></i> Login</a></div>
+        <div class="col-xs-6 text-right"><a href="#"><i class="fa fa-lock"></i> Forgot password</a></div>
+      </div>-->
+    </div>
+    
+    </form>
+
+<script type="text/javascript">
+
+function check() {
+    var bool = true;
+    //var uname = document.getElementById('username');
+    var email = document.getElementById('email');
+    var fname = document.getElementById('fname');
+    var lname = document.getElementById('lname');
+    if(uname.value == '')
+    {
+      uname.style.border= "1px solid #f00";
+      bool = false;
+      //alert("empty");
+    }
+    if(email.value == '')
+    {
+      email.style.border= "1px solid #f00";
+      bool = false;
+      //alert("empty");
+    }
+    if(pass.value == '')
+    {
+      bool = false;
+      pass.style.border= "1px solid #f00";
+      //alert("empty");
+    }
+    if(pass2.value == '')
+    {
+      bool = false;
+      pass2.style.border= "1px solid #f00";
+      //alert("empty");
+    }
+    if(fname.value == '')
+    {
+      bool = false;
+      fname.style.border= "1px solid #f00";
+      //alert("empty");
+    }
+    if(lname.value == '')
+    {
+      bool = false;
+      lname.style.border= "1px solid #f00";
+      //alert("empty");
+    }
+    if(bool)
+    {
+      document.getElementById('trueSubmit').click();
+    }
+    
+  }
+</script>
+
+</body>
 </html>

@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^login/', views.login_user),
     url(r'^index/',views.index),
     url(r'^add-produce/', views.add_produce)
+    url(r'^logout/',views.logout_app),
 ]
 
 if settings.DEBUG:

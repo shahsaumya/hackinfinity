@@ -1,0 +1,35 @@
+<html>
+	
+	body{
+		
+	}
+	.part{
+	border-top:10px solid orange;
+	margin-top:200px;
+	margin-left:400px;
+	width:500px;
+	background-color:#51a7d4;
+	font-size:20px;
+	font-family:cookie;
+
+	}
+	.part1{
+		color:white;
+		margin-left:150px;
+	}
+	
+	.text{
+		font-size:20px;
+		font-family:cookie;
+		
+	}
+
+.glyphicon glyphicon-lock{
+	
+	
+}
+.btn btn-default btn-sm{
+	font-size:20px;
+	
+}
+</html>
