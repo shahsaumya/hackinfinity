@@ -50,11 +50,8 @@ def register(request):
 
 @login_required
 def query_produce(request):
-    if request.method == "POST":
-        produce = Produce.objects.all()
-        return render("market.html", {"produce": produce})
-    else:
-        return HttpResponse(status_code=400)
+    produce = Produce.objects.all()
+    return render(request, "market.html", {"produce": produce})
 
 
 @login_required
@@ -72,7 +69,7 @@ def add_support(request):
 def view_support(request):
     if request.method == "GET":
         support = Support.objects.filter(user_id=request.user.id)
-        return render("support.html", {"support": support})
+        return render(request, "support.html", {"support": support})
     else:
         return HttpResponse(status_code=400)
 
@@ -95,10 +92,12 @@ def add_produce(request):
         quantity = request.POST['quantity']
         produce = Produce(user=request.user, crop=crop, quantity=quantity)
         produce.save()
-        return render("market.html")
+        return render(request, "market.html")
     else:
         return HttpResponse(status_code=400)
 
+def login_page(request):
+    return render(request, "login.html")
 
 def login_user(request):
     if request.method == 'POST':
