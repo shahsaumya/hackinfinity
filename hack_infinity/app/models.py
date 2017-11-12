@@ -43,6 +43,7 @@ class Recommendation(models.Model):
     humidity = models.CharField(max_length=30)
     temperature = models.CharField(max_length=30)
     fertilizer = models.CharField(max_length=30)
+    crop = models.CharField(max_length=30)
 
 
 class Crop(models.Model):

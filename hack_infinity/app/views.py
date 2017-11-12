@@ -166,7 +166,15 @@ def feedback(request):
 
 
 def predictions(request):
-    return render(request,'predictions.html')
+    if request.method == 'POST':
+        crop = request.POST.get('crop')
+        print crop 
+        recc = Recommendation.objects.get(crop=str(crop))
+        print recc
+        return render(request,'predictions.html',{'crop':recc})
+    else:
+         return render(request,'predictions.html')
+
 
 def market(request):
     if request.user.is_authenticated():

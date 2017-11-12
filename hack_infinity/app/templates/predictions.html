@@ -31,7 +31,7 @@
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-
+<link href="{% static "css/root.css" %}" rel="stylesheet">
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -158,20 +158,79 @@
 
     <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
-            <div>
-            <form>
-
-                    
-                    <select id="crops" class="center">
-                        <option value="Jowar" selected="selected">Jowar</option>
-                        <option value="Bajra">Bajra</option>
+          <div>
+            <form method="POST">
+                    <select id="crops" name ="crop" class="center" onchange="this.form.submit()">
+                        <option value="Jowar" >Jowar</option>
+                        <option value="Bajra" selected="selected">Bajra</option>
                         <option value="Rice">Rice</option>
                         <option value="Cotton">Cotton</option>
                     </select>
             </form>
+<br><br><br>
+            <!--<div id="barchart_values" style="width: 900px; height: 300px;margin-left:150px; margin-top: 100px;"></div>
+            </div>-->
+            <div class="col-md-12">
+                {% if crop %}
+      <div class="panel panel-default">
+        <div class="panel-title">
+          Crop Recommendations
+        </div>
+        <div class="panel-body table-responsive">
+            <table id="example0" class="table display">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Recommendation</th>                        
+                    </tr>
+                </thead>
+             
+                <tfoot>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Recommendation</th>   
+                    </tr>
+                </tfoot>
+             
+                <tbody>
+                <tr>
+                    <td>Rainfall</td>
+                    {% if crop.rainfall == '1' %}
+                    <td class="fa fa-check"> </td>
+                    {% else %}
+                    <td  class="fa fa-close"> </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Soil</td>
+                    {% if crop.soil == '1' %}
+                    <td class="fa fa-check"> </td>
+                    {% else %}
+                    <td  class="fa fa-close"> </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Humidity</td>
+                    {% if crop.humidity == '1' %}
+                    <td class="fa fa-check"> </td>
+                    {% else %}
+                    <td  class="fa fa-close"> </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Temperature</td>
+                    {% if crop.temperature == '1' %}
+                    <td class="fa fa-check"> </td>
+                    {% else %}
+                    <td  class="fa fa-close"> </td>
+                    {% endif %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-            <div id="barchart_values" style="width: 900px; height: 300px;margin-left:150px; margin-top: 100px;"></div>
-            </div>
+      </div> {% endif %}
+    </div>
 
 
         </div>
@@ -220,4 +279,124 @@
 <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/dashboard/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">View Source</a>
 <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </body>
+
+<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+<script src="{% static "js/bootstrap/bootstrap.min.js" %}"></script>
+
+<!-- ================================================
+Plugin.js - Some Specific JS codes for Plugin Settings
+================================================ -->
+<script type="text/javascript" src="{% static "js/plugins.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Select
+================================================ -->
+<script type="text/javascript" src="{% static "js/bootstrap-select/bootstrap-select.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Toggle
+================================================ -->
+<script type="text/javascript" src="{% static "js/bootstrap-toggle/bootstrap-toggle.min.js" %}"></script>
+
+<!-- ================================================
+Moment.js
+================================================ -->
+<script type="text/javascript" src="{% static "js/moment/moment.min.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Date Range Picker
+================================================ -->
+<script type="text/javascript" src="{% static "js/date-range-picker/daterangepicker.js" %}"></script>
+
+
+<script src="{% static "js/datatables/datatables.min.js" %}"></script>
+
+
+
+<script>
+$(document).ready(function() {
+    $('#example0').DataTable();
+} );
+</script>
+
+<script type="text/javascript">
+function add_produce(){
+    var crop = document.getElementById('crop').value;
+    var qty = document.getElementById('qty').value;
+    var price = document.getElementById('price').value;
+    //alert(mobile);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Added");
+            window.location.reload();
+        }
+    };
+    //alert("1");
+    var flag=0;
+    xhttp.open("POST", '../market/', true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("crop="+crop+"&qty="+qty+"&price="+price+"&flag="+flag);}
+
+function remove_produce(crop,qty,price){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Removed");
+            window.location.reload();
+        }
+    };
+    var flag=1;
+    xhttp.open("POST", '../market/', true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("crop="+crop+"&qty="+qty+"&price="+price+"&flag="+flag);}
+</script>
+
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable({
+        "columnDefs": [
+            { "visible": false, "targets": 2 }
+        ],
+        "order": [[ 2, 'asc' ]],
+        "displayLength": 25,
+        "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+ 
+            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                    );
+ 
+                    last = group;
+                }
+            } );
+        }
+    } );
+ 
+    // Order by the grouping
+    $('#example tbody').on( 'click', 'tr.group', function () {
+        var currentOrder = table.order()[0];
+        if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
+            table.order( [ 2, 'desc' ] ).draw();
+        }
+        else {
+            table.order( [ 2, 'asc' ] ).draw();
+        }
+    } );
+} );
+</script>
+
 </html>
