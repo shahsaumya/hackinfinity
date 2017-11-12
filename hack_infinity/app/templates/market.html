@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!doctype html>
 
 <!--
@@ -41,7 +42,7 @@
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
 
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
@@ -51,7 +52,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
         #view-source {
             position: fixed;
@@ -108,26 +109,25 @@
     </header>
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
-            <img src="images/user.jpg" class="demo-avatar">
+            <img src="{% static "images/user.jpg" %}" class="demo-avatar">
             <div class="demo-avatar-dropdown">
-                <span>hello@example.com</span>
-                <div class="mdl-layout-spacer"></div>
-                <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                    <i class="material-icons" role="presentation">arrow_drop_down</i>
-                    <span class="visuallyhidden">Accounts</span>
-                </button>
-                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                    <li class="mdl-menu__item">hello@example.com</li>
-                    <li class="mdl-menu__item">info@example.com</li>
-                    <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-                </ul>
-            </div>
+            <span>{{ user.first_name }}</span>
+            <div class="mdl-layout-spacer"></div>
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+              <i class="material-icons" role="presentation">arrow_drop_down</i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+              <li class="mdl-menu__item">{{ user.email }}</li>
+              <li class="mdl-menu__item"><a href="../logout">Logout</a></li>
+            </ul>
+          </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="index.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-            <a class="mdl-navigation__link" href="predictions.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Predictions</a>
-            <a class="mdl-navigation__link" href="market.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Market</a>
-            <a class="mdl-navigation__link" href="feedback.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Feedback</a>
+            <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" href="../predictions"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Predictions</a>
+          <a class="mdl-navigation__link" href="../market"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Market</a>
+          <a class="mdl-navigation__link" href="../feedback"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Feedback</a>
             <div class="mdl-layout-spacer"></div>
             <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
