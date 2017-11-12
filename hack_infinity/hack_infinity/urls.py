@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^register/', views.register),
     url(r'^login/', views.login_user),
     url(r'^index/',views.index),
+    url(r'^logout/',views.logout_app),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

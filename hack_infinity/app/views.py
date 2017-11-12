@@ -21,15 +21,14 @@ def register(request):
     if request.method == 'POST':
         first_name = request.POST.get('fname')
         last_name = request.POST.get('lname')
-
         email = request.POST.get('email')
-        #username = email
+        user_type = request.POST.get('user_type')
         mobile = request.POST.get('mobile')
         password = randint(1000, 9999)
         #message = "Your OTP for login is: "
         #requests.get('https://control.msg91.com/api/sendhttp.php?authkey=132727AshR9z6QU9Dg58416307&mobiles='+mob+'&message='+a+'&sender=DLFIND&route=4', None)
         if MyUser.objects.filter(email=email).exists():
-            return render(request, 'register.html', {'error': 'Email already taken by another user', 'first_name': first_name, 'last_name': last_name, 'username': username, 'email': email})
+            return render(request, 'register.html', {'error1': 'Email already taken by another user', 'first_name': first_name, 'last_name': last_name, 'username': username, 'email': email})
         elif MyUser.objects.filter(mobile_no=mobile).exists():
             return render(
                 request,
@@ -44,11 +43,9 @@ def register(request):
             )
         else:
             user = MyUser.objects.create(
-                first_name=first_name, last_name=last_name, email=email, username=email, mobile_no=mobile)
+                first_name=first_name, last_name=last_name, email=email, username=email, mobile_no=mobile, user_type=user_type)
             user.set_password(password)
             user.save()
-            #user = auth.authenticate(username = username, password = password)
-            #login(request,user)
             return redirect('/login/')
     else:
             return render(request, 'register.html')
@@ -64,33 +61,53 @@ def add_produce(request):
 
 
 def login_user(request):
-        if request.method == 'POST':
-                mobile = request.POST.get('mobile')
-                otp = request.POST.get('otp')
-                print(mobile + ' ' + otp)
-                if mobile and otp != '':
-                        user = MyUser.objects.get(mobile_no=mobile)
-                        email = user.email
-                        user = None
-                        user = auth.authenticate(
-                            username=email, password=str(otp))
-                        print(user)
-                        if user:
-                                login(request, user)
-                                return HttpResponse("HO GAYA!!!!!!")
-                        else:
-                                return render(request, 'login.html', {'mobile': mobile, 'error': 'Incorrect OTP'})
-                elif 'mobile' in request.POST and otp == '':
-                        mobile = request.POST.get('mobile')
-                        otp = str(randint(1000, 9999))
-                        user = MyUser.objects.get(mobile_no=mobile)
-                        user.set_password(otp)
-                        user.save()
-                        message = "Your OTP for login is: " + otp
-                        requests.get('https://control.msg91.com/api/sendhttp.php?authkey=132727AshR9z6QU9Dg58416307&mobiles=' +
-                                     mobile + '&message=' + message + '&sender=CROPPY&route=4', None)
+    if request.method == 'POST':
+        mobile = request.POST.get('mobile')
+        otp = request.POST.get('otp',None)
+        #print(mobile + ' ' + otp)
+        if 'mobile' in request.POST and otp is not None:
+            try:
+                user = MyUser.objects.get(mobile_no=mobile)
+            except MyUser.DoesNotExist:
+                return redirect('../register')
+            email = user.email
+            user = None
+            user = auth.authenticate(
+                username=email, password=str(otp))
+            #print(user)
+            if user:
+                login(request, user)
+                return redirect('../index')
+            else:
+                return render(request, 'login.html', {'mobile': mobile, 'error': 'Incorrect OTP'})
+        elif 'mobile' in request.POST and otp is None:
+            mobile = request.POST.get('mobile')
+            otp = str(randint(1000, 9999))
+            try:
+                user = MyUser.objects.get(mobile_no=mobile)
+            except MyUser.DoesNotExist:
+                print(mobile)
+                return redirect('../register')
+            user.set_password(otp)
+            user.save()
+            message = "Your OTP for login is: " + otp
+            requests.get('https://control.msg91.com/api/sendhttp.php?authkey=132727AshR9z6QU9Dg58416307&mobiles=' +
+                         mobile + '&message=' + message + '&sender=CROPPY&route=4', None)
+            return HttpResponse()
+    else:            
         return render(request, 'login.html')
 
 
 def index(request):
-    return render(request,'index.html')
+    if request.user.is_authenticated():
+        return render(request,'index.html')
+    else:
+        return redirect('../login')
+
+
+def logout_app(request):
+    if request.user.is_authenticated():
+        logout(request)
+        return redirect('../login/')
+    else:
+        return HttpResponseRedirect('../login/')
