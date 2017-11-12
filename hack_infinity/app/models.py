@@ -27,7 +27,8 @@ class Produce(models.Model):
     user = models.ForeignKey('MyUser')
     crop = models.CharField(max_length=30)
     quantity = models.IntegerField()
-    status = models.CharField(max_length=10)
+    price = models.CharField(max_length=10)
+    status = models.CharField(max_length=15)
 
 
 class Support(models.Model):

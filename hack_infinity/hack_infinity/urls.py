@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^$',views.index),
     url(r'^logout/',views.logout_app),
     url(r'^add-produce/$', views.add_produce),
-    url(r'^market/$', views.query_produce),
+    url(r'^market/$', views.market),
     url(r'^add-support/$', views.add_support),
     url(r'^view-support/$', views.view_support),
     url(r'^remove_produce/$', views.remove_produce),

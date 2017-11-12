@@ -31,7 +31,7 @@
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-
+    <link href="{% static "css/root.css" %}" rel="stylesheet">
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -135,16 +135,16 @@
 
     <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
-        {% for product in produce %}
+        {% for vendor in vendors %}
 
             <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
                 <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
                     <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                        <h2 class="mdl-card__title-text">{{product.crop}}</h2>
+                        <h2 class="mdl-card__title-text">Vendor</h2>
                     </div>
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                        <b>Name</b>: {{product.user.first_name}} {{product.user.last_name}}<br/>
-                        <b>Quantity</b>: {{product.quantity}} qt
+                        <b>Name</b>: {{vendor.first_name}} {{vendor.last_name}}<br/>
+                        <b>Mobile</b>: {{ vendor.mobile_no }}
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
@@ -154,7 +154,92 @@
 
         {% endfor %}
             </div>
+            <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-title">
+          My Produce
+        </div>
+        <div class="panel-body table-responsive">
+            <form>
+                <center>
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                    
+                    <div class="input-group">
+                      <div class="input-group-addon"><i class="fa fa-coffee"></i></div>
+                      <select id="crop" >
+                        <option value="Jowar" selected="selected">Jowar</option>
+                        <option value="Bajra">Bajra</option>
+                        <option value="Rice">Rice</option>
+                        <option value="Cotton">Cotton</option>
+                    </select>
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    
+                    <div class="input-group">
+                      <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                      <input type="text" class="form-control" id="qty" placeholder="Quantity (quintal)">
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    
+                    <div class="input-group">
+                      <div class="input-group-addon"><i class="fa fa-usd"></i></div>
+                      <input type="text" class="form-control" id="price" placeholder="Price per quintal">
+                    </div>
+                  </div>
+                    <div class="col-sm-4 center">
+                        <input type="button" name="Crop" class="btn btn-submit" value="Add Produce" onclick="add_produce()">
+                    </div>
+                </div>
+                </center>
+                </form>
+                <br><br><br><br>
+            <table id="example0" class="table display">
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Quantity (in Quintal)</th>
+                        <th>Approx Price (₹/quintal)</th>
+                        <th>Status</th>
+                        
+                    </tr>
+                </thead>
+             
+                <tfoot>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Quantity (in Quintal)</th>
+                        <th>Approx Price (₹/quintal)</th>
+                        <th>Status</th>
+                    </tr>
+                </tfoot>
+             
+                <tbody>
+                    {% for prod in produce %}
+                    <tr>
+                        <td>{{ prod.crop }}</td>
+                        <td>{{ prod.quantity }}</td>
+                        <td>₹ {{ prod.price }}</td>
+                        {% if prod.status is not 'SOLD' %}
+                        <td><input type="button" class="btn btn-submit" value="Remove" onclick="remove_produce('{{ prod.crop }}','{{ prod.quantity }}','{{ prod.price }}')"></td>
+                        {% else %}
+                        <td>Sold</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+
+      </div>
+    </div>
+    <!-- End Panel -->
     </main>
+     
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position: fixed; left: -1000px; height: -1000px;">
     <defs>
@@ -199,4 +284,118 @@
 
 <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </body>
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+<script src="{% static "js/bootstrap/bootstrap.min.js" %}"></script>
+
+<!-- ================================================
+Plugin.js - Some Specific JS codes for Plugin Settings
+================================================ -->
+<script type="text/javascript" src="{% static "js/plugins.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Select
+================================================ -->
+<script type="text/javascript" src="{% static "js/bootstrap-select/bootstrap-select.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Toggle
+================================================ -->
+<script type="text/javascript" src="{% static "js/bootstrap-toggle/bootstrap-toggle.min.js" %}"></script>
+
+<!-- ================================================
+Moment.js
+================================================ -->
+<script type="text/javascript" src="{% static "js/moment/moment.min.js" %}"></script>
+
+<!-- ================================================
+Bootstrap Date Range Picker
+================================================ -->
+<script type="text/javascript" src="{% static "js/date-range-picker/daterangepicker.js" %}"></script>
+
+
+<script src="{% static "js/datatables/datatables.min.js" %}"></script>
+
+
+
+<script>
+$(document).ready(function() {
+    $('#example0').DataTable();
+} );
+</script>
+
+<script type="text/javascript">
+function add_produce(){
+    var crop = document.getElementById('crop').value;
+    var qty = document.getElementById('qty').value;
+    var price = document.getElementById('price').value;
+    //alert(mobile);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Added");
+            window.location.reload();
+        }
+    };
+    //alert("1");
+    var flag=0;
+    xhttp.open("POST", '../market/', true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("crop="+crop+"&qty="+qty+"&price="+price+"&flag="+flag);}
+
+function remove_produce(crop,qty,price){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Removed");
+            window.location.reload();
+        }
+    };
+    var flag=1;
+    xhttp.open("POST", '../market/', true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("crop="+crop+"&qty="+qty+"&price="+price+"&flag="+flag);}
+</script>
+
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable({
+        "columnDefs": [
+            { "visible": false, "targets": 2 }
+        ],
+        "order": [[ 2, 'asc' ]],
+        "displayLength": 25,
+        "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+ 
+            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                    );
+ 
+                    last = group;
+                }
+            } );
+        }
+    } );
+ 
+    // Order by the grouping
+    $('#example tbody').on( 'click', 'tr.group', function () {
+        var currentOrder = table.order()[0];
+        if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
+            table.order( [ 2, 'desc' ] ).draw();
+        }
+        else {
+            table.order( [ 2, 'asc' ] ).draw();
+        }
+    } );
+} );
+</script>
+
 </html>

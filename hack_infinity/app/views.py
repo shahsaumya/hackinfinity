@@ -169,4 +169,29 @@ def predictions(request):
     return render(request,'predictions.html')
 
 def market(request):
-    return render(request,'market.html')
+    if request.user.is_authenticated():
+        if request.method=='POST':
+            flag = request.POST.get('flag')
+            if flag=='0':
+                crop = request.POST.get('crop')
+                price = request.POST.get('price')
+                qty = request.POST.get('qty')
+                produce = Produce()
+                produce.user = request.user
+                produce.crop = crop
+                produce.quantity = qty
+                produce.price = price
+                produce.status = 'Available'
+                produce.save()
+                return HttpResponse()
+            elif flag=='1':
+                crop = request.POST.get('crop')
+                price = request.POST.get('price')
+                qty = request.POST.get('qty')
+                Produce.objects.filter(user=request.user,crop=crop,price=price,quantity=qty).delete()
+                return HttpResponse()
+        vendors = MyUser.objects.filter(user_type=1)
+        produce = Produce.objects.filter(user=request.user)
+        return render(request,'market.html',{'vendors':vendors, 'produce':produce})
+    else:
+        return redirect('../login')
