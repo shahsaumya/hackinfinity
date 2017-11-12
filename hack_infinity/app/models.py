@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 class MyUser(AbstractUser):
     mobile_no = models.CharField(max_length=10, unique=True)
     user_type = models.NullBooleanField(null=True)
-    aadhar = models.CharField(max_length=20,null=True,blank=True)
+    aadhar = models.CharField(max_length=20, null=True, blank=True)
 
 
 class State_translator(models.Model):
@@ -34,3 +34,19 @@ class Support(models.Model):
     user = models.ForeignKey("MyUser")
     support_text = models.TextField()
     is_read = models.BooleanField()
+
+
+class Recommendation(models.Model):
+    rainfall = models.CharField(max_length=30)
+    soil = models.CharField(max_length=30)
+    humidity = models.CharField(max_length=30)
+    temperature = models.CharField(max_length=30)
+    fertilizer = models.CharField(max_length=30)
+
+
+class Crop(models.Model):
+    soil_profile = models.CharField(max_length=100)
+    market_price = models.IntegerField()
+    projected_market_price = models.IntegerField()
+    water_req = models.CharField(max_length=50)
+    temp_req = models.CharField(max_length=50)
