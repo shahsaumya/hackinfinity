@@ -148,3 +148,13 @@ def logout_app(request):
         return redirect('../login/')
     else:
         return HttpResponseRedirect('../login/')
+
+def feedback(request):
+    return render(request,'feedback.html')
+
+
+def predictions(request):
+    return render(request,'predictions.html')
+
+def market(request):
+    return render(request,'market.html')

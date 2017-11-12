@@ -30,6 +30,9 @@ urlpatterns = [
     url(r'^add-support/$', views.add_support),
     url(r'^view-support/$', views.view_support),
     url(r'^remove_produce/$', views.remove_produce),
+    url(r'^feedback/$', views.feedback),
+    url(r'^market/$', views.market),
+    url(r'^predictions/$', views.predictions),
 ]
 
 if settings.DEBUG:
