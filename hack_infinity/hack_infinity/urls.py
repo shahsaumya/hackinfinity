@@ -20,12 +20,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+<<<<<<< HEAD
     url(r'^admin/', admin.site.urls),
     url(r'^register/', views.register),
     url(r'^login/', views.login_user),
     url(r'^index/',views.index),
-    url(r'^add-produce/', views.add_produce)
     url(r'^logout/',views.logout_app),
+    url(r'^add-produce/$', views.add_produce),
+    url(r'^query-produce/$', views.query_produce),
+    url(r'^add-support/$', views.add_support),
+    url(r'^view-support/$', views.view_support),
+    url(r'^remove_produce/$', views.remove_produce),
 ]
 
 if settings.DEBUG:
