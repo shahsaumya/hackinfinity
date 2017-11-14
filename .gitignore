@@ -104,3 +104,9 @@ ENV/
 *.sqlite3
 
 00*.py
+
+# Vim tempfiles
+*~
+*.swp
+*.swo
+
